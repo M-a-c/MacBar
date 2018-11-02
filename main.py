@@ -170,36 +170,36 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 #        print("message header: {}").format(messageHeader)
         if messageHeader == "a":#done
             white = Color()
-            white.setColorRBGW(255,255,255,255)
+            white.setColorRBGW(255,0,0,0)
             eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
         if messageHeader == "s":#done
             white = Color()
-            white.setColorRBGW(0,255,255,255)
+            white.setColorRBGW(0,255,255,0)
             eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
         if messageHeader == "d":#done
             white = Color()
-            white.setColorRBGW(255,0,255,255)
+            white.setColorRBGW(255,0,255,0)
             eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
         if messageHeader == "f":#done
             white = Color()
-            white.setColorRBGW(255,255,0,255)
+            white.setColorRBGW(255,255,0,0)
             eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
         if messageHeader == "j":#done
             white = Color()
-            white.setColorRBGW(0,0,255,255)
+            white.setColorRBGW(0,0,255,0)
             eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
         if messageHeader == "k":#done
             white = Color()
-            white.setColorRBGW(255,0,0,255)
+            white.setColorRBGW(255,0,0,0)
             eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
         if messageHeader == "l":#done
 #            white = Color()
-#            white.setColorRBGW(0,255,0,255)
+#            white.setColorRBGW(0,255,0,0)
 #            eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
-            hardwareController.set_hue_rotation(90)
+            hardwareController.set_hue_rotation(0)
         if messageHeader == ";":#done
 #            white = Color()
-#            white.setColorRBGW(0,0,0,255)
+#            white.setColorRBGW(0,0,0,0)
 #            eventLoop.effects.append(Wave(leds, 71, Direction.BOTH_NO_CENTER, white))
             hardwareController.set_hue_rotation(180)
 #        if messageHeader == "000":#done
