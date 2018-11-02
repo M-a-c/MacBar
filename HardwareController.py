@@ -5,14 +5,37 @@ from enum import Enum
 import colorsys
 import time
 from util import delay
+
+
+import sys
+if sys.version_info[2] == 5:
+	import board
+	import neopixel
+	DEBUG = False
+	# Choose an open pin connected to the Data In of the NeoPixel strip, i.e. board.D18
+	# NeoPixels must be connected to D10, D12, D18 or D21 to work.
+	pixel_pin = board.D18
+
+	# The number of NeoPixels
+	num_pixels = 144
+
+	# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
+	# For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
+	ORDER = neopixel.GRB
+
+	pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=1, auto_write=False,
+										pixel_order=ORDER)
+else:
+	from tkinter import *
+	DEBUG = True
+
 #import fcntl, array, RPi.GPIO as GPIO
 FONT="Helvetica 8"
 
 class HardwareController():
-	def __init__(self, DEBUG, LED_LIST, window):
+	def __init__(self, LED_LIST, window):
 		self.window = window
 		self.test = 0
-		self.DEBUG = DEBUG
 		self.LED_LIST = LED_LIST
 		self.NUM_LEDS = len(LED_LIST)
 		self.rotation = 0
@@ -22,22 +45,23 @@ class HardwareController():
 		#open the SPI device for writing
 
 		if(not DEBUG):
-			spidev = file("/dev/spidev0.0", "wb")
-
-			#set the speed of the SPI bus, 5000000 == 5mhz  
-			#Magic number below is from spidev.h SPI_IOC_WR_MAX_SPEED_HZ
-			#TODO: can I reference this as a constant from termios?
-			fcntl.ioctl(spidev, 0x40046b04, array.array('L', [6000000]))
-
-			#setup our GPIO
-			GPIO.setwarnings(False)
-			GPIO.setmode(GPIO.BCM)
-			GPIO.setup(ENABLE_PIN, GPIO.OUT)
-			GPIO.setup(LATCH_PIN, GPIO.OUT)
-
-			#both pins low to start
-			GPIO.output(LATCH_PIN, 0)
-			GPIO.output(ENABLE_PIN, 0)
+			pass
+#			spidev = file("/dev/spidev0.0", "wb")
+#
+#			#set the speed of the SPI bus, 5000000 == 5mhz  
+#			#Magic number below is from spidev.h SPI_IOC_WR_MAX_SPEED_HZ
+#			#TODO: can I reference this as a constant from termios?
+#			fcntl.ioctl(spidev, 0x40046b04, array.array('L', [6000000]))
+#
+#			#setup our GPIO
+#			GPIO.setwarnings(False)
+#			GPIO.setmode(GPIO.BCM)
+#			GPIO.setup(ENABLE_PIN, GPIO.OUT)
+#			GPIO.setup(LATCH_PIN, GPIO.OUT)
+#
+#			#both pins low to start
+#			GPIO.output(LATCH_PIN, 0)
+#			GPIO.output(ENABLE_PIN, 0)
 	
 	
 	def clamp(self,v):
@@ -68,21 +92,21 @@ class HardwareController():
 		return self.clamp(rx), self.clamp(gx), self.clamp(bx)
 
 	def write(self):
-		if (self.DEBUG):
-			for index, light in enumerate(self.LED_LIST):
-				num =  index + 1
-				red8Bit = 0
-				green8Bit = 0
-				blue8Bit = 0
-				
-				if(self.rotation == 0):
-					red8Bit = light.r
-					green8Bit = light.g
-					blue8Bit = light.b
-				else:
-					red8Bit,green8Bit,blue8Bit = self.apply(light.r,light.g,light.b)
-	
-				
+		for index, light in enumerate(self.LED_LIST):
+			num =  index + 1
+			red8Bit = 0
+			green8Bit = 0
+			blue8Bit = 0
+			white8Bit = light.w
+			
+			if(self.rotation == 0):
+				red8Bit = light.r
+				green8Bit = light.g
+				blue8Bit = light.b
+			else:
+				red8Bit,green8Bit,blue8Bit = self.apply(light.r,light.g,light.b)
+		
+			if (DEBUG):
 				red8BitInverse = 255 - red8Bit
 				green8BitInverse = 255 - green8Bit
 				blue8BitInverse = 255 - blue8Bit
@@ -101,9 +125,11 @@ class HardwareController():
 				stringTwo = "Text_" + str(num)
 				self.window.itemconfig(string, fill=fillColor)
 				self.window.itemconfig(stringTwo, fill=fillColorInverse)
-		else:
-			pass
-			
+			else:
+				pixels[index] = (green8Bit, blue8Bit, red8Bit, white8Bit)
+		if (not DEBUG):
+			pixels.show()
+
 		
 	def set_led():
 		pass

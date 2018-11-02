@@ -7,10 +7,10 @@
 # Strobe (x1, x2, color, diration-of-flash, diraiton-of-off, fade-on, fade-off)
 # Rotate(LEFT, RIGHT, BOTH) (Sides to do a roate on) happens on the hardware thread just before output so all inputs are ok.
 
-#------- Enable --------#
-from tkinter import *
-DEBUG = True
-#-----------------------#
+##------- Enable --------#
+#from tkinter import *
+#DEBUG = True
+##-----------------------#
 
 #------- Disable --------#
 #import fcntl, array, RPi.GPIO as GPIO
@@ -46,6 +46,14 @@ from Wave import Wave, Direction
 from Color import Color
 from Light import Light
 from util import delay
+
+import sys
+if sys.version_info[2] == 5:
+    #import realdeal.
+    DEBUG = False
+else:
+    from tkinter import *
+    DEBUG = True
 
 ### /Configuration ###
 ## Diagram by Mac Carter
@@ -226,9 +234,11 @@ if __name__ == "__main__":
     global effectList
     global rotation
     
-    tkWindow = Tk()
-    window = Canvas(tkWindow, width=1200, height=480)
-    hardwareController = HardwareController(True,leds,window)
+    if DEBUG:
+        tkWindow = Tk()
+        window = Canvas(tkWindow, width=1200, height=480)
+    
+    hardwareController = HardwareController(leds,window)
     tornadoThread = TornadoThread()
     tornadoThread.start()
     eventLoop = EventLoop()
