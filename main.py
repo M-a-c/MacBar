@@ -45,7 +45,7 @@ from Effect import Effect
 from Wave import Wave, Direction
 from Color import Color
 from Light import Light
-from util import delay
+from util import delay, reset
 
 import sys
 if sys.version_info[2] == 5:
@@ -117,6 +117,7 @@ class EventLoop(threading.Thread):
                 o.step()
 #            self.test.step()
             hardwareController.write()
+            reset(leds)
 #            delay(200)
 #            ResetCalledLeds()
 #            Last touched by UDID of init time of obj callee

@@ -23,10 +23,10 @@ class Light(Color):
 			self.setColorRBGW(color.r,color.g,color.b,color.w)
 			self.touched = True;
 	
-	def resetTouched():
+	def resetTouched(self):
 		self.touched = False
 				
-	def resetLastSetUdid():
+	def resetLastSetUdid(self):
 		self.lastSetByUdid = 0
 		
 	def getWrittenStatus(self):

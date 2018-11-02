@@ -42,28 +42,6 @@ class HardwareController():
 		
 		self.matrix = [[1,0,0],[0,1,0],[0,0,1]]
 
-		#open the SPI device for writing
-
-		if(not DEBUG):
-			pass
-#			spidev = file("/dev/spidev0.0", "wb")
-#
-#			#set the speed of the SPI bus, 5000000 == 5mhz  
-#			#Magic number below is from spidev.h SPI_IOC_WR_MAX_SPEED_HZ
-#			#TODO: can I reference this as a constant from termios?
-#			fcntl.ioctl(spidev, 0x40046b04, array.array('L', [6000000]))
-#
-#			#setup our GPIO
-#			GPIO.setwarnings(False)
-#			GPIO.setmode(GPIO.BCM)
-#			GPIO.setup(ENABLE_PIN, GPIO.OUT)
-#			GPIO.setup(LATCH_PIN, GPIO.OUT)
-#
-#			#both pins low to start
-#			GPIO.output(LATCH_PIN, 0)
-#			GPIO.output(ENABLE_PIN, 0)
-	
-	
 	def clamp(self,v):
 		if v < 0:
 			return 0
