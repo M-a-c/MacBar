@@ -21,7 +21,7 @@ if sys.version_info[2] == 5:
 
 	# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
 	# For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
-	ORDER = neopixel.GRB
+	ORDER = neopixel.GRBW
 
 	pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=1, auto_write=False,
 										pixel_order=ORDER)

@@ -237,6 +237,8 @@ if __name__ == "__main__":
     if DEBUG:
         tkWindow = Tk()
         window = Canvas(tkWindow, width=1200, height=480)
+    else:
+        window=0
     
     hardwareController = HardwareController(leds,window)
     tornadoThread = TornadoThread()

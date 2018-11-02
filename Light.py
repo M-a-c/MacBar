@@ -13,13 +13,13 @@ class Light(Color):
 		self.touched = False
 	
 	def setColor(self, color, udid):
-		if (self.written == False):
+		if (self.touched == False):
 			self.setColorRBGW(color.r,color.g,color.b,color.w)
 			self.touched = True;
 			self.lastSetByUdid = udid
 		
 	def setColorNoUdid(self, color):
-		if (self.written == False):
+		if (self.touched == False):
 			self.setColorRBGW(color.r,color.g,color.b,color.w)
 			self.touched = True;
 	

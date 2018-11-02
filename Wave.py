@@ -26,7 +26,7 @@ class Wave(Effect):
 	
 	def __init__(self, lightList, currentPixel, direction, color):
 		super(Wave, self).__init__()
-		
+		self.udid = time.time()		
 		self.color = color;
 		self.currentPixel = currentPixel
 		self.opositeDirecitonPixel = currentPixel
@@ -49,11 +49,11 @@ class Wave(Effect):
 		
 	def right(self):
 		if(self.currentPixel < self.endAtPixel):
-			self.lightList[self.currentPixel].setColor(self.color)
+			self.lightList[self.currentPixel].setColor(self.color,self.udid)
 			self.currentPixel = self.currentPixel + 1
 	def left(self):
 		if(self.opositeDirecitonPixel != -1):
-			self.lightList[self.opositeDirecitonPixel].setColor(self.color)
+			self.lightList[self.opositeDirecitonPixel].setColor(self.color,self.udid)
 			self.opositeDirecitonPixel = self.opositeDirecitonPixel - 1
 	def both(self):
 		self.right()
