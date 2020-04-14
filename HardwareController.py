@@ -8,7 +8,7 @@ from util import delay
 
 
 import sys
-if sys.version_info[2] == 5:
+if False and sys.version_info[2] == 5:
 	import board
 	import neopixel
 	DEBUG = False

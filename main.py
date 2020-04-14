@@ -9,7 +9,7 @@
 
 ##------- Enable --------#
 #from tkinter import *
-#DEBUG = True
+DEBUG = True
 ##-----------------------#
 
 #------- Disable --------#
@@ -48,12 +48,13 @@ from Light import Light
 from util import delay, reset
 
 import sys
+from tkinter import *
 if sys.version_info[2] == 5:
     #import realdeal.
-    DEBUG = False
+    pass
 else:
-    from tkinter import *
-    DEBUG = True
+    #DEBUG = True
+    pass
 
 ### /Configuration ###
 ## Diagram by Mac Carter
